@@ -12,6 +12,25 @@ public class Studentcontroller{
 
     @PostMapping("/add")
     public Studententity addStudent(@RequestBody Studententity st){
-        return ser.save
+        return ser.saveData(st);
     }
+
+    @GetMapping("/getall")
+    public collection<Studententity> getAllStudents(){
+        return ser.getAll();
+    }
+
+    @GetMapping("/get/{id}")
+    public Studententity getStudentByID(@PathVariable int id){
+        return ser.getById(id);
+    }
+
+    @PutMapping("/update/{id}")
+    public Studententity updateStudent(
+        @PathVariable int id,
+        @RequestBody Studententity st){
+            return ser.update(id,st);
+        }
+
+    
 }
