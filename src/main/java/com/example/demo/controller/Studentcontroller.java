@@ -10,27 +10,33 @@ public class Studentcontroller{
     @Autowired
     private Studentservice ser;
 
+    //post
     @PostMapping("/add")
     public Studententity addStudent(@RequestBody Studententity st){
         return ser.saveData(st);
     }
 
+    //get all
     @GetMapping("/getall")
     public collection<Studententity> getAllStudents(){
         return ser.getAll();
     }
 
+    //get by id
     @GetMapping("/get/{id}")
     public Studententity getStudentByID(@PathVariable int id){
         return ser.getById(id);
     }
 
+    //put(update)
     @PutMapping("/update/{id}")
     public Studententity updateStudent(
         @PathVariable int id,
         @RequestBody Studententity st){
             return ser.update(id,st);
+
         }
+    
 
     
 }
