@@ -3,27 +3,29 @@ package com.example.demo.service.impl;
 import org.springframework.stereotype.Service;
 import com.example.demo.entity.Shipment;
 import com.example.demo.entity.Vehicle;
-import com.example.demo.repository.ShipmentRepository;
-import com.example.demo.repository.VehicleRepository;
+import com.example.demo.repository.ShipmentRepo;
+import com.example.demo.repository.VehicleRepo;
 import com.example.demo.service.ShipmentService;
 
 @Service
 public class ShipmentServiceImpl implements ShipmentService {
 
-    private final ShipmentRepository shipmentRepository;
-    private final VehicleRepository vehicleRepository;
+    private final ShipmentRepo shipmentRepo;
+    private final VehicleRepo vehicleRepo;
 
-    public ShipmentServiceImpl(ShipmentRepository shipmentRepository,
-                               VehicleRepository vehicleRepository) {
-        this.shipmentRepository = shipmentRepository;
-        this.vehicleRepository = vehicleRepository;
-    }
+
+    public ShipmentServiceImpl(ShipmentRepo shipmentRepo,
+                           VehicleRepo vehicleRepo) {
+    this.shipmentRepo = shipmentRepo;
+    this.vehicleRepo = vehicleRepo;
+}
+
 
     @Override
     public Shipment create(Long vehicleId, Shipment shipment) {
-        Vehicle vehicle = vehicleRepository.findById(vehicleId).orElse(null);
+        Vehicle vehicle = vehicleRepo.findById(vehicleId).orElse(null);
         shipment.setVehicle(vehicle);
-        return shipmentRepository.save(shipment);
+        return shipmentRepo.save(shipment);
     }
 
     @Override
