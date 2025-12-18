@@ -30,11 +30,11 @@ public class ShipmentServiceImpl implements ShipmentService {
 
     @Override
     public Shipment get(Long id) {
-        return shipmentRepository.findById(id).orElse(null);
+        return shipmentRepo.findById(id).orElse(null);
     }
 
     @Override
     public void delete(Long id) {
-        shipmentRepository.deleteById(id);
+        shipmentRepo.deleteById(id);
     }
 }

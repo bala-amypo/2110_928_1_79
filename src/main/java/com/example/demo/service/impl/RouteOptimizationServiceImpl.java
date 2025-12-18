@@ -2,7 +2,7 @@ package com.example.demo.service.impl;
 
 import org.springframework.stereotype.Service;
 import com.example.demo.entity.RouteOptimizationResult;
-import com.example.demo.repository.RouteOptimizationResultRepository;
+import com.example.demo.repository.RouteOptimizationResultRepo;
 import com.example.demo.service.RouteOptimizationService;
 
 @Service
