@@ -8,9 +8,11 @@ import com.example.demo.service.RouteOptimizationService;
 @Service
 public class RouteOptimizationServiceImpl implements RouteOptimizationService {
 
-    private final RouteOptimizationResultRepository repository;
+    // ✅ FIXED: use Repo (not Repository)
+    private final RouteOptimizationResultRepo repository;
 
-    public RouteOptimizationServiceImpl(RouteOptimizationResultRepository repository) {
+    // ✅ FIXED constructor
+    public RouteOptimizationServiceImpl(RouteOptimizationResultRepo repository) {
         this.repository = repository;
     }
 
