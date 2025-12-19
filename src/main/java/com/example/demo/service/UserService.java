@@ -1,14 +1,12 @@
-package com.example.demo.service;
+package com.example.transportpro.service;
 
-import com.example.demo.entity.User;
+import com.example.transportpro.entity.User;
+import java.util.List;
 
 public interface UserService {
-
     User create(User user);
-
-    User get(Long id);
-
-    User update(User user);
-
+    User getById(Long id);
+    List<User> getAll();
+    User update(Long id, User user);
     void delete(Long id);
 }

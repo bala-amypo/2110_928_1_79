@@ -1,8 +1,10 @@
-package com.example.demo.controller;
+package com.example.transportpro.controller;
 
+import com.example.transportpro.entity.User;
+import com.example.transportpro.service.UserService;
 import org.springframework.web.bind.annotation.*;
-import com.example.demo.entity.User;
-import com.example.demo.service.UserService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -20,13 +22,18 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User get(@PathVariable Long id) {
-        return service.get(id);
+    public User getById(@PathVariable Long id) {
+        return service.getById(id);
     }
 
-    @PutMapping
-    public User update(@RequestBody User user) {
-        return service.update(user);
+    @GetMapping
+    public List<User> getAll() {
+        return service.getAll();
+    }
+
+    @PutMapping("/{id}")
+    public User update(@PathVariable Long id, @RequestBody User user) {
+        return service.update(id, user);
     }
 
     @DeleteMapping("/{id}")
