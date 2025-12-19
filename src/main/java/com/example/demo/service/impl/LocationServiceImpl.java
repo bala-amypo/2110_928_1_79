@@ -1,8 +1,8 @@
-package com.example.demo.service.impl;
+package com.example.transportpro.service.impl;
 
-import com.example.demo.entity.Location;
-import com.example.demo.repository.LocationRepo;
-import com.example.demo.service.LocationService;
+import com.example.transportpro.entity.Location;
+import com.example.transportpro.repo.LocationRepo;
+import com.example.transportpro.service.LocationService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,30 +16,27 @@ public class LocationServiceImpl implements LocationService {
         this.repo = repo;
     }
 
-    private void validate(Location l) {
-        if (l.getLatitude() < -90 || l.getLatitude() > 90) {
-            throw new IllegalArgumentException("Invalid latitude");
-        }
-    }
-
-    @Override
     public Location create(Location location) {
-        validate(location);
         return repo.save(location);
     }
 
-    @Override
-    public Location update(Location location) {
-        validate(location);
-        return repo.save(location);
+    public Location getById(Long id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Location not found"));
     }
 
-    @Override
     public List<Location> getAll() {
         return repo.findAll();
     }
 
-    @Override
+    public Location update(Long id, Location location) {
+        Location l = getById(id);
+        l.setName(location.getName());
+        l.setLatitude(location.getLatitude());
+        l.setLongitude(location.getLongitude());
+        return repo.save(l);
+    }
+
     public void delete(Long id) {
         repo.deleteById(id);
     }

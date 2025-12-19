@@ -1,37 +1,43 @@
-package com.example.demo.controller;
+package com.example.transportpro.controller;
+
+import com.example.transportpro.entity.Location;
+import com.example.transportpro.service.LocationService;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import org.springframework.web.bind.annotation.*;
-import com.example.demo.entity.Location;
-import com.example.demo.service.LocationService;
 
 @RestController
 @RequestMapping("/locations")
 public class LocationController {
 
-    private final LocationService locationService;
+    private final LocationService service;
 
-    public LocationController(LocationService locationService) {
-        this.locationService = locationService;
+    public LocationController(LocationService service) {
+        this.service = service;
     }
 
     @PostMapping
     public Location create(@RequestBody Location location) {
-        return locationService.create(location);
+        return service.create(location);
+    }
+
+    @GetMapping("/{id}")
+    public Location getById(@PathVariable Long id) {
+        return service.getById(id);
     }
 
     @GetMapping
     public List<Location> getAll() {
-        return locationService.getAll();
+        return service.getAll();
     }
 
-    @PutMapping
-    public Location update(@RequestBody Location location) {
-        return locationService.update(location);
+    @PutMapping("/{id}")
+    public Location update(@PathVariable Long id, @RequestBody Location location) {
+        return service.update(id, location);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        locationService.delete(id);
+        service.delete(id);
     }
 }
