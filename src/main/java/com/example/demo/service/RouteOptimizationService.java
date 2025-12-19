@@ -1,9 +1,17 @@
-package com.example.demo.service;
+package com.example.transportpro.service;
 
-import com.example.demo.entity.RouteOptimizationResult;
+import com.example.transportpro.entity.RouteOptimizationResult;
+import java.util.List;
 
 public interface RouteOptimizationService {
-    RouteOptimizationResult optimize(Long shipmentId);
-    RouteOptimizationResult get(Long id);
+
+    RouteOptimizationResult create(RouteOptimizationResult result);
+
+    RouteOptimizationResult getById(Long id);
+
+    List<RouteOptimizationResult> getAll();
+
+    RouteOptimizationResult update(Long id, RouteOptimizationResult result);
+
     void delete(Long id);
 }

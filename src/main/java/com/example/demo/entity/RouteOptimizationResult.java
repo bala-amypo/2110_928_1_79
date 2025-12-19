@@ -1,52 +1,24 @@
-package com.example.demo.entity;
+package com.example.transportpro.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "route_optimization_results")
 public class RouteOptimizationResult {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Shipment shipment;
-
-    // ✅ ADDED FIELD
-    private String optimizedRoute;
-
-    private Double optimizedDistanceKm;
-    private Double estimatedFuelUsageL;
-    private LocalDateTime generatedAt;
-
-    @PrePersist
-    void init() {
-        generatedAt = LocalDateTime.now();
-    }
+    private Double distance;
+    private Double duration;
 
     public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Shipment getShipment() { return shipment; }
-    public void setShipment(Shipment shipment) { this.shipment = shipment; }
+    public Double getDistance() { return distance; }
+    public void setDistance(Double distance) { this.distance = distance; }
 
-    // ✅ ADDED GETTER
-    public String getOptimizedRoute() {
-        return optimizedRoute;
-    }
-
-    // ✅ ADDED SETTER
-    public void setOptimizedRoute(String optimizedRoute) {
-        this.optimizedRoute = optimizedRoute;
-    }
-
-    public Double getOptimizedDistanceKm() { return optimizedDistanceKm; }
-    public void setOptimizedDistanceKm(Double optimizedDistanceKm) {
-        this.optimizedDistanceKm = optimizedDistanceKm;
-    }
-
-    public Double getEstimatedFuelUsageL() { return estimatedFuelUsageL; }
-    public void setEstimatedFuelUsageL(Double estimatedFuelUsageL) {
-        this.estimatedFuelUsageL = estimatedFuelUsageL;
-    }
+    public Double getDuration() { return duration; }
+    public void setDuration(Double duration) { this.duration = duration; }
 }

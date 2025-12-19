@@ -1,35 +1,48 @@
-package com.example.demo.service.impl;
+package com.example.transportpro.service.impl;
 
+import com.example.transportpro.entity.RouteOptimizationResult;
+import com.example.transportpro.repo.RouteOptimizationResultRepo;
+import com.example.transportpro.service.RouteOptimizationService;
 import org.springframework.stereotype.Service;
-import com.example.demo.entity.RouteOptimizationResult;
-import com.example.demo.repository.RouteOptimizationResultRepo;
-import com.example.demo.service.RouteOptimizationService;
+
+import java.util.List;
 
 @Service
-public class RouteOptimizationServiceImpl implements RouteOptimizationService {
+public class RouteOptimizationServiceImpl
+        implements RouteOptimizationService {
 
-    // ✅ FIXED: use Repo (not Repository)
-    private final RouteOptimizationResultRepo repository;
+    private final RouteOptimizationResultRepo repo;
 
-    // ✅ FIXED constructor
-    public RouteOptimizationServiceImpl(RouteOptimizationResultRepo repository) {
-        this.repository = repository;
+    public RouteOptimizationServiceImpl(RouteOptimizationResultRepo repo) {
+        this.repo = repo;
     }
 
     @Override
-    public RouteOptimizationResult optimize(Long shipmentId) {
-        RouteOptimizationResult result = new RouteOptimizationResult();
-        result.setOptimizedRoute("Optimized route for shipment " + shipmentId);
-        return repository.save(result);
+    public RouteOptimizationResult create(RouteOptimizationResult result) {
+        return repo.save(result);
     }
 
     @Override
-    public RouteOptimizationResult get(Long id) {
-        return repository.findById(id).orElse(null);
+    public RouteOptimizationResult getById(Long id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Route optimization result not found"));
+    }
+
+    @Override
+    public List<RouteOptimizationResult> getAll() {
+        return repo.findAll();
+    }
+
+    @Override
+    public RouteOptimizationResult update(Long id, RouteOptimizationResult result) {
+        RouteOptimizationResult existing = getById(id);
+        existing.setDistance(result.getDistance());
+        existing.setDuration(result.getDuration());
+        return repo.save(existing);
     }
 
     @Override
     public void delete(Long id) {
-        repository.deleteById(id);
+        repo.deleteById(id);
     }
 }
