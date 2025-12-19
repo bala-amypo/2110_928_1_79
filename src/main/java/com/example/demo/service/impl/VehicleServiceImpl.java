@@ -1,44 +1,33 @@
-package com.example.demo.service.impl;
-
-import com.example.demo.entity.User;
-import com.example.demo.entity.Vehicle;
-import com.example.demo.repository.UserRepo;
-import com.example.demo.repository.VehicleRepo;
-import com.example.demo.service.VehicleService;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-
 @Service
 public class VehicleServiceImpl implements VehicleService {
 
-    private final VehicleRepo vehicleRepo;
-    private final UserRepo userRepo;
+    private final VehicleRepo repo;
 
-    public VehicleServiceImpl(VehicleRepo vehicleRepo, UserRepo userRepo) {
-        this.vehicleRepo = vehicleRepo;
-        this.userRepo = userRepo;
+    public VehicleServiceImpl(VehicleRepo repo) {
+        this.repo = repo;
     }
 
-    @Override
-    public Vehicle addVehicle(Long userId, Vehicle vehicle) {
-        User user = userRepo.findById(userId).orElse(null);
-        vehicle.setUser(user);
-        return vehicleRepo.save(vehicle);
+    public Vehicle create(Vehicle v) {
+        return repo.save(v);
     }
 
-    @Override
-    public List<Vehicle> getVehiclesByUser(Long userId) {
-        return vehicleRepo.findByUserId(userId);
+    public Vehicle getById(Long id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Vehicle not found"));
     }
 
-    @Override
-    public Vehicle findById(Long id) {
-        return vehicleRepo.findById(id).orElse(null);
+    public List<Vehicle> getAll() {
+        return repo.findAll();
     }
 
-    @Override
+    public Vehicle update(Long id, Vehicle v) {
+        Vehicle ex = getById(id);
+        ex.setVehicleNumber(v.getVehicleNumber());
+        ex.setType(v.getType());
+        return repo.save(ex);
+    }
+
     public void delete(Long id) {
-        vehicleRepo.deleteById(id);
+        repo.deleteById(id);
     }
 }

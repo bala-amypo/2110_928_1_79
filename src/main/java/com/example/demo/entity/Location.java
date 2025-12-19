@@ -1,8 +1,9 @@
-package com.example.demo.entity;
+package com.example.transportpro.entity;
 
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "locations")
 public class Location {
 
     @Id

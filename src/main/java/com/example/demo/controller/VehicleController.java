@@ -1,43 +1,35 @@
-package com.example.demo.controller;
-
-import com.example.demo.entity.Vehicle;
-import com.example.demo.service.VehicleService;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
 @RestController
 @RequestMapping("/vehicles")
 public class VehicleController {
 
-    private final VehicleService vehicleService;
+    private final VehicleService service;
 
-    public VehicleController(VehicleService vehicleService) {
-        this.vehicleService = vehicleService;
+    public VehicleController(VehicleService service) {
+        this.service = service;
     }
 
-    // POST: add vehicle for a user
-    @PostMapping("/{userId}")
-    public Vehicle add(@PathVariable Long userId,
-                       @RequestBody Vehicle vehicle) {
-        return vehicleService.addVehicle(userId, vehicle);
+    @PostMapping
+    public Vehicle create(@RequestBody Vehicle v) {
+        return service.create(v);
     }
 
-    // GET: all vehicles by user
-    @GetMapping("/user/{userId}")
-    public List<Vehicle> getByUser(@PathVariable Long userId) {
-        return vehicleService.getVehiclesByUser(userId);
-    }
-
-    // GET: vehicle by id
     @GetMapping("/{id}")
-    public Vehicle getById(@PathVariable Long id) {
-        return vehicleService.findById(id);
+    public Vehicle get(@PathVariable Long id) {
+        return service.getById(id);
     }
 
-    // DELETE: delete vehicle
+    @GetMapping
+    public List<Vehicle> getAll() {
+        return service.getAll();
+    }
+
+    @PutMapping("/{id}")
+    public Vehicle update(@PathVariable Long id, @RequestBody Vehicle v) {
+        return service.update(id, v);
+    }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        vehicleService.delete(id);
+        service.delete(id);
     }
 }
