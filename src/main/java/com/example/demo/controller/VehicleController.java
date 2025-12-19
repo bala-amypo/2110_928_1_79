@@ -4,7 +4,6 @@ import com.example.demo.entity.Vehicle;
 import com.example.demo.service.VehicleService;
 
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController

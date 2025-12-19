@@ -1,12 +1,12 @@
-package com.example.transportpro.service;
+package com.example.demo.service;
 
-import com.example.transportpro.entity.Vehicle;
+import com.example.demo.entity.Vehicle;
 import java.util.List;
 
 public interface VehicleService {
-    Vehicle create(Vehicle vehicle);
+    Vehicle create(Vehicle v);
     Vehicle getById(Long id);
     List<Vehicle> getAll();
-    Vehicle update(Long id, Vehicle vehicle);
+    Vehicle update(Long id, Vehicle v);
     void delete(Long id);
 }
