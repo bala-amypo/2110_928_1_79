@@ -16,15 +16,15 @@ public class VehicleController {
         this.vehicleService = vehicleService;
     }
 
-    // GET /vehicles/{userId}
-    @GetMapping("/{userId}")
-    public List<Vehicle> getVehiclesByUserId(@PathVariable Long userId) {
-        return vehicleService.getVehiclesByUserId(userId);
+    // GET /vehicles
+    @GetMapping
+    public List<Vehicle> getAllVehicles() {
+        return vehicleService.getAllVehicles();
     }
 
-    // GET /vehicles/user/{userId}
-    @GetMapping("/user/{userId}")
-    public List<Vehicle> getVehiclesForUser(@PathVariable Long userId) {
-        return vehicleService.getVehiclesByUserId(userId);
+    // POST /vehicles
+    @PostMapping
+    public Vehicle addVehicle(@RequestBody Vehicle vehicle) {
+        return vehicleService.saveVehicle(vehicle);
     }
 }

@@ -16,15 +16,27 @@ public class ShipmentController {
         this.shipmentService = shipmentService;
     }
 
-    // GET /shipments/{vehicleId}
-    @GetMapping("/{vehicleId}")
-    public List<Shipment> getShipmentsByVehicleId(@PathVariable Long vehicleId) {
-        return shipmentService.getShipmentsByVehicleId(vehicleId);
+    // GET /shipments
+    @GetMapping
+    public List<Shipment> getAllShipments() {
+        return shipmentService.getAllShipments();
     }
 
-    // GET /shipments/shipment/{shipmentId}
-    @GetMapping("/shipment/{shipmentId}")
-    public Shipment getShipmentById(@PathVariable Long shipmentId) {
-        return shipmentService.getShipmentById(shipmentId);
+    // GET /shipments/{id}
+    @GetMapping("/{id}")
+    public Shipment getShipmentById(@PathVariable Long id) {
+        return shipmentService.getShipmentById(id);
+    }
+
+    // POST /shipments
+    @PostMapping
+    public Shipment createShipment(@RequestBody Shipment shipment) {
+        return shipmentService.saveShipment(shipment);
+    }
+
+    // DELETE /shipments/{id}
+    @DeleteMapping("/{id}")
+    public void deleteShipment(@PathVariable Long id) {
+        shipmentService.deleteShipment(id);
     }
 }

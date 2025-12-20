@@ -4,7 +4,10 @@ import com.example.demo.entity.RouteOptimizationResult;
 import com.example.demo.service.RouteOptimizationService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@RequestMapping("/routeOptimizationResults")
 public class RouteOptimizationController {
 
     private final RouteOptimizationService routeOptimizationService;
@@ -13,9 +16,16 @@ public class RouteOptimizationController {
         this.routeOptimizationService = routeOptimizationService;
     }
 
-    // GET /optimize/{shipmentId}
-    @GetMapping("/optimize/{shipmentId}")
-    public RouteOptimizationResult optimizeRoute(@PathVariable Long shipmentId) {
-        return routeOptimizationService.optimize(shipmentId);
+    // GET /routeOptimizationResults
+    @GetMapping
+    public List<RouteOptimizationResult> getAllResults() {
+        return routeOptimizationService.getAllResults();
+    }
+
+    // POST /routeOptimizationResults
+    @PostMapping
+    public RouteOptimizationResult saveResult(
+            @RequestBody RouteOptimizationResult result) {
+        return routeOptimizationService.saveResult(result);
     }
 }
