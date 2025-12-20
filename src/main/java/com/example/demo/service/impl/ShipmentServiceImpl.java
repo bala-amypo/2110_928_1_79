@@ -1,12 +1,13 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.*;
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.*;
 import com.example.demo.service.ShipmentService;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
+@Service
 public class ShipmentServiceImpl implements ShipmentService {
 
     private final ShipmentRepository shipmentRepository;
@@ -21,33 +22,31 @@ public class ShipmentServiceImpl implements ShipmentService {
         this.locationRepository = locationRepository;
     }
 
+    @Override
     public Shipment createShipment(Long vehicleId, Shipment shipment) {
+
         Vehicle vehicle = vehicleRepository.findById(vehicleId)
-                .orElseThrow(() -> new ResourceNotFoundException("Vehicle not found"));
+                .orElseThrow(() -> new RuntimeException("Vehicle not found"));
+
+        Location pickup = locationRepository.findById(
+                shipment.getPickupLocation().getId())
+                .orElseThrow(() -> new RuntimeException("Pickup not found"));
+
+        Location drop = locationRepository.findById(
+                shipment.getDropLocation().getId())
+                .orElseThrow(() -> new RuntimeException("Drop not found"));
 
         if (shipment.getWeightKg() > vehicle.getCapacityKg()) {
-            throw new IllegalArgumentException("Weight exceeds capacity");
+            throw new IllegalArgumentException("exceeds capacity");
         }
 
         if (shipment.getScheduledDate().isBefore(LocalDate.now())) {
-            throw new IllegalArgumentException("Date is in the past");
+            throw new IllegalArgumentException("past date");
         }
 
-        Location pickup = locationRepository.findById(shipment.getPickupLocation().getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Location not found"));
-
-        Location drop = locationRepository.findById(shipment.getDropLocation().getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Location not found"));
-
-        shipment.setVehicle(vehicle);
-        shipment.setPickupLocation(pickup);
-        shipment.setDropLocation(drop);
+        shipment = new Shipment(vehicle, pickup, drop,
+                shipment.getWeightKg(), shipment.getScheduledDate());
 
         return shipmentRepository.save(shipment);
-    }
-
-    public Shipment getShipment(Long shipmentId) {
-        return shipmentRepository.findById(shipmentId)
-                .orElseThrow(() -> new ResourceNotFoundException("Shipment not found"));
     }
 }

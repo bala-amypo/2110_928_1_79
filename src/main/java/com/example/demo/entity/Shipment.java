@@ -4,14 +4,12 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "shipments")
 public class Shipment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private double weightKg;
-    private LocalDate scheduledDate;
 
     @ManyToOne
     private Vehicle vehicle;
@@ -22,18 +20,42 @@ public class Shipment {
     @ManyToOne
     private Location dropLocation;
 
-    public double getWeightKg() { return weightKg; }
-    public void setWeightKg(double weightKg) { this.weightKg = weightKg; }
+    private Double weightKg;
+    private LocalDate scheduledDate;
 
-    public LocalDate getScheduledDate() { return scheduledDate; }
-    public void setScheduledDate(LocalDate scheduledDate) { this.scheduledDate = scheduledDate; }
+    public Shipment() {}
 
-    public Vehicle getVehicle() { return vehicle; }
-    public void setVehicle(Vehicle vehicle) { this.vehicle = vehicle; }
+    public Shipment(Vehicle vehicle, Location pickupLocation,
+                    Location dropLocation, Double weightKg,
+                    LocalDate scheduledDate) {
+        this.vehicle = vehicle;
+        this.pickupLocation = pickupLocation;
+        this.dropLocation = dropLocation;
+        this.weightKg = weightKg;
+        this.scheduledDate = scheduledDate;
+    }
 
-    public Location getPickupLocation() { return pickupLocation; }
-    public void setPickupLocation(Location pickupLocation) { this.pickupLocation = pickupLocation; }
+    public Long getId() {
+        return id;
+    }
 
-    public Location getDropLocation() { return dropLocation; }
-    public void setDropLocation(Location dropLocation) { this.dropLocation = dropLocation; }
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public Location getPickupLocation() {
+        return pickupLocation;
+    }
+
+    public Location getDropLocation() {
+        return dropLocation;
+    }
+
+    public Double getWeightKg() {
+        return weightKg;
+    }
+
+    public LocalDate getScheduledDate() {
+        return scheduledDate;
+    }
 }
