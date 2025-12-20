@@ -22,4 +22,17 @@ public class ShipmentServiceImpl implements ShipmentService {
         shipments.add(shipment);
         return shipment;
     }
+
+    @Override
+    public Shipment getShipmentById(Long id) {
+        return shipments.stream()
+                .filter(s -> s.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
+    public void deleteShipment(Long id) {
+        shipments.removeIf(s -> s.getId().equals(id));
+    }
 }

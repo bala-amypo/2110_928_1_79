@@ -7,5 +7,8 @@ public interface ShipmentService {
 
     List<Shipment> getAllShipments();
 
-    Shipment saveShipment(Shipment shipment);   // ✅ ADD THIS
+    Shipment saveShipment(Shipment shipment);
+
+    Shipment getShipmentById(Long id);      // ✅ ADD
+    void deleteShipment(Long id);            // ✅ ADD
 }

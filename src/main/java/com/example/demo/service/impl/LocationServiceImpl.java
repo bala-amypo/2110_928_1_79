@@ -1,25 +1,25 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.Vehicle;
-import com.example.demo.service.VehicleService;
+import com.example.demo.entity.Location;
+import com.example.demo.service.LocationService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class VehicleServiceImpl implements VehicleService {
+public class LocationServiceImpl implements LocationService {
 
-    private final List<Vehicle> vehicles = new ArrayList<>();
+    private final List<Location> locations = new ArrayList<>();
 
     @Override
-    public List<Vehicle> getAllVehicles() {
-        return vehicles;
+    public List<Location> getAllLocations() {
+        return locations;
     }
 
     @Override
-    public Vehicle saveVehicle(Vehicle vehicle) {
-        vehicles.add(vehicle);
-        return vehicle;
+    public Location saveLocation(Location location) {
+        locations.add(location);
+        return location;
     }
 }
