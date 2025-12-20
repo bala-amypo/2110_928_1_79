@@ -11,7 +11,6 @@ public class LocationController {
 
     private final LocationService locationService;
 
-    // Inject interface, not implementation
     public LocationController(LocationService locationService) {
         this.locationService = locationService;
     }
