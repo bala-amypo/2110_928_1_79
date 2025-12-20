@@ -1,28 +1,60 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Shipment {
 
     @Id
-    private String shipmentId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
 
     @ManyToOne
     private Vehicle vehicle;
 
+    private String location;
+
     public Shipment() {}
 
-    public Shipment(String shipmentId, Vehicle vehicle) {
-        this.shipmentId = shipmentId;
+    public Shipment(String name, Vehicle vehicle, String location) {
+        this.name = name;
+        this.vehicle = vehicle;
+        this.location = location;
+    }
+
+    // ===== GETTERS & SETTERS =====
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {           // ✅ REQUIRED
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
     }
 
-    public String getShipmentId() { return shipmentId; }
-    public void setShipmentId(String shipmentId) { this.shipmentId = shipmentId; }
+    public String getLocation() {       // ✅ REQUIRED
+        return location;
+    }
 
-    public Vehicle getVehicle() { return vehicle; }
-    public void setVehicle(Vehicle vehicle) { this.vehicle = vehicle; }
+    public void setLocation(String location) {
+        this.location = location;
+    }
 }

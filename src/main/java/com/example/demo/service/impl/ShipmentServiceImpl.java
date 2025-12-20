@@ -6,9 +6,8 @@ import com.example.demo.service.ShipmentService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
-@Service  // VERY IMPORTANT: This makes it a Spring bean
+@Service
 public class ShipmentServiceImpl implements ShipmentService {
 
     private final ShipmentRepository shipmentRepository;
@@ -24,8 +23,7 @@ public class ShipmentServiceImpl implements ShipmentService {
 
     @Override
     public Shipment getShipmentById(Long id) {
-        Optional<Shipment> shipment = shipmentRepository.findById(id);
-        return shipment.orElse(null);
+        return shipmentRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -36,9 +34,9 @@ public class ShipmentServiceImpl implements ShipmentService {
     @Override
     public Shipment updateShipment(Long id, Shipment updatedShipment) {
         return shipmentRepository.findById(id).map(shipment -> {
-            shipment.setName(updatedShipment.getName());
+            shipment.setName(updatedShipment.getName());        // ✅ now exists
+            shipment.setLocation(updatedShipment.getLocation());// ✅ now exists
             shipment.setVehicle(updatedShipment.getVehicle());
-            shipment.setLocation(updatedShipment.getLocation());
             return shipmentRepository.save(shipment);
         }).orElse(null);
     }
