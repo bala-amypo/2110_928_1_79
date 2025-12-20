@@ -3,7 +3,6 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "vehicles")
 public class Vehicle {
 
     @Id
@@ -11,9 +10,8 @@ public class Vehicle {
     private Long id;
 
     private String name;
-    private String type;
 
-    private Long userId; // link vehicle to user
+    private Double capacityKg; // Make sure this matches your weight logic
 
     // Getters and Setters
     public Long getId() { return id; }
@@ -22,9 +20,6 @@ public class Vehicle {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
-
-    public Long getUserId() { return userId; }
-    public void setUserId(Long userId) { this.userId = userId; }
+    public Double getCapacityKg() { return capacityKg; }
+    public void setCapacityKg(Double capacityKg) { this.capacityKg = capacityKg; }
 }
