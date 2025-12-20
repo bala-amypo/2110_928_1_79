@@ -1,7 +1,7 @@
-package com.example.transportpro.service;
+package com.example.demo.service;
 
-import com.example.transportpro.entity.Vehicle;
-import com.example.transportpro.repository.VehicleRepository;
+import com.example.demo.entity.Vehicle;
+import com.example.demo.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
