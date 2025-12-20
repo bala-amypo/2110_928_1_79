@@ -4,15 +4,20 @@ public class Vehicle {
 
     private String name;
     private String type;
+    private double capacityKg;       // Added field
+    private double fuelEfficiency;   // Added field (km/l or similar)
 
     public Vehicle() { }
 
-    public Vehicle(String name, String type) {
+    public Vehicle(String name, String type, double capacityKg, double fuelEfficiency) {
         this.name = name;
         this.type = type;
+        this.capacityKg = capacityKg;
+        this.fuelEfficiency = fuelEfficiency;
     }
 
-    // getters & setters
+    // Getters and setters
+
     public String getName() {
         return name;
     }
@@ -27,5 +32,21 @@ public class Vehicle {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public double getCapacityKg() {
+        return capacityKg;
+    }
+
+    public void setCapacityKg(double capacityKg) {
+        this.capacityKg = capacityKg;
+    }
+
+    public double getFuelEfficiency() {
+        return fuelEfficiency;
+    }
+
+    public void setFuelEfficiency(double fuelEfficiency) {
+        this.fuelEfficiency = fuelEfficiency;
     }
 }
