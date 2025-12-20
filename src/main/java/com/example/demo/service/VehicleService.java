@@ -1,9 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Vehicle;
 import java.util.List;
 
-public interface VehicleService {
-    List<Vehicle> getAllVehicles();
-    void addVehicle(Vehicle vehicle);
+public interface LocationService {
+    List<String> getAllLocations();
+    void addLocation(String location);
 }

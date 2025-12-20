@@ -7,7 +7,7 @@ public class Vehicle {
     private double capacityKg;
     private double fuelEfficiency;
 
-    public Vehicle() { }
+    public Vehicle() {}
 
     public Vehicle(String name, String type, double capacityKg, double fuelEfficiency) {
         this.name = name;
