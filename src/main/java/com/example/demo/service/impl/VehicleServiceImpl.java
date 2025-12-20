@@ -3,6 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.entity.Vehicle;
 import com.example.demo.service.VehicleService;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +13,12 @@ public class VehicleServiceImpl implements VehicleService {
     private final List<Vehicle> vehicles = new ArrayList<>();
 
     @Override
-    public List<Vehicle> getAllVehicles() { return vehicles; }
+    public List<Vehicle> getAllVehicles() {
+        return vehicles;
+    }
 
     @Override
-    public void addVehicle(Vehicle vehicle) { vehicles.add(vehicle); }
+    public void addVehicle(Vehicle vehicle) {
+        vehicles.add(vehicle);
+    }
 }

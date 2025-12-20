@@ -20,7 +20,6 @@ public class Shipment {
         this.vehicle = vehicle;
     }
 
-    // Getters and setters
     public String getShipmentId() { return shipmentId; }
     public void setShipmentId(String shipmentId) { this.shipmentId = shipmentId; }
 
