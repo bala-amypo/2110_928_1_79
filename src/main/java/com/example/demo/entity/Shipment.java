@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 public class Shipment {
@@ -9,52 +10,38 @@ public class Shipment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-
     @ManyToOne
+    @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 
-    private String location;
+    @ManyToOne
+    @JoinColumn(name = "pickup_location_id")
+    private Location pickupLocation;
 
-    public Shipment() {}
+    @ManyToOne
+    @JoinColumn(name = "drop_location_id")
+    private Location dropLocation;
 
-    public Shipment(String name, Vehicle vehicle, String location) {
-        this.name = name;
-        this.vehicle = vehicle;
-        this.location = location;
-    }
+    private Double weightKg;
 
-    // ===== GETTERS & SETTERS =====
+    private LocalDate scheduledDate;
 
-    public Long getId() {
-        return id;
-    }
+    // Getters and setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Vehicle getVehicle() { return vehicle; }
+    public void setVehicle(Vehicle vehicle) { this.vehicle = vehicle; }
 
-    public String getName() {           // ✅ REQUIRED
-        return name;
-    }
+    public Location getPickupLocation() { return pickupLocation; }
+    public void setPickupLocation(Location pickupLocation) { this.pickupLocation = pickupLocation; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public Location getDropLocation() { return dropLocation; }
+    public void setDropLocation(Location dropLocation) { this.dropLocation = dropLocation; }
 
-    public Vehicle getVehicle() {
-        return vehicle;
-    }
+    public Double getWeightKg() { return weightKg; }
+    public void setWeightKg(Double weightKg) { this.weightKg = weightKg; }
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
-    }
-
-    public String getLocation() {       // ✅ REQUIRED
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
+    public LocalDate getScheduledDate() { return scheduledDate; }
+    public void setScheduledDate(LocalDate scheduledDate) { this.scheduledDate = scheduledDate; }
 }
