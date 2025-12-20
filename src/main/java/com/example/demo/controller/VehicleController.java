@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import com.example.demo.entity.Vehicle;
 import com.example.demo.service.VehicleService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -17,9 +16,7 @@ public class VehicleController {
     }
 
     @GetMapping
-    public List<Vehicle> getAllVehicles() {
-        return vehicleService.getAllVehicles();
-    }
+    public List<Vehicle> getAllVehicles() { return vehicleService.getAllVehicles(); }
 
     @PostMapping
     public String addVehicle(@RequestBody Vehicle vehicle) {

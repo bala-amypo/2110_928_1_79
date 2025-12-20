@@ -11,12 +11,8 @@ public class LocationServiceImpl implements LocationService {
     private final List<String> locations = new ArrayList<>();
 
     @Override
-    public List<String> getAllLocations() {
-        return locations;
-    }
+    public List<String> getAllLocations() { return locations; }
 
     @Override
-    public void addLocation(String location) {
-        locations.add(location);
-    }
+    public void addLocation(String location) { locations.add(location); }
 }
