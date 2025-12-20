@@ -11,13 +11,13 @@ public class LocationController {
 
     private final LocationService locationService;
 
-    // Constructor injection
+    // Inject interface, not implementation
     public LocationController(LocationService locationService) {
         this.locationService = locationService;
     }
 
     @GetMapping
-    public List<String> getLocations() {
+    public List<String> getAllLocations() {
         return locationService.getAllLocations();
     }
 

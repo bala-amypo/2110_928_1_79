@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Vehicle;
 import com.example.demo.service.VehicleService;
+import com.example.demo.entity.Vehicle;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,18 +12,19 @@ public class VehicleController {
 
     private final VehicleService vehicleService;
 
+    // Inject interface
     public VehicleController(VehicleService vehicleService) {
         this.vehicleService = vehicleService;
     }
 
-    @PostMapping("/{userId}")
-    public Vehicle addVehicle(@PathVariable Long userId,
-                              @RequestBody Vehicle vehicle) {
-        return vehicleService.addVehicle(userId, vehicle);
+    @GetMapping
+    public List<Vehicle> getAllVehicles() {
+        return vehicleService.getAllVehicles();
     }
 
-    @GetMapping("/user/{userId}")
-    public List<Vehicle> getVehiclesByUser(@PathVariable Long userId) {
-        return vehicleService.getVehiclesByUser(userId);
+    @PostMapping
+    public String addVehicle(@RequestBody Vehicle vehicle) {
+        vehicleService.addVehicle(vehicle);
+        return "Vehicle added: " + vehicle.getName();
     }
 }
