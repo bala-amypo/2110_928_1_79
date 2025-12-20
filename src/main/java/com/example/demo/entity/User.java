@@ -1,6 +1,7 @@
-package com.example.transportpro.entity;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -11,14 +12,25 @@ public class User {
     private Long id;
 
     private String name;
+
+    @Column(unique = true)
     private String email;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    private String password;
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    private String role;
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    @OneToMany(mappedBy = "user")
+    private List<Vehicle> vehicles;
+
+    public User() {}
+
+    public User(String name, String email, String password, String role) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    // getters & setters
 }

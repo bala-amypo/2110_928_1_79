@@ -1,6 +1,7 @@
-package com.example.transportpro.entity;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "shipments")
@@ -10,19 +11,28 @@ public class Shipment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String source;
-    private String destination;
-    private String status;
+    @ManyToOne
+    private Vehicle vehicle;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    @ManyToOne
+    private Location pickupLocation;
 
-    public String getSource() { return source; }
-    public void setSource(String source) { this.source = source; }
+    @ManyToOne
+    private Location dropLocation;
 
-    public String getDestination() { return destination; }
-    public void setDestination(String destination) { this.destination = destination; }
+    private Double weightKg;
+    private LocalDate scheduledDate;
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public Shipment() {}
+
+    public Shipment(Vehicle vehicle, Location pickupLocation, Location dropLocation,
+                    Double weightKg, LocalDate scheduledDate) {
+        this.vehicle = vehicle;
+        this.pickupLocation = pickupLocation;
+        this.dropLocation = dropLocation;
+        this.weightKg = weightKg;
+        this.scheduledDate = scheduledDate;
+    }
+
+    // getters & setters
 }
