@@ -15,6 +15,20 @@ public class User {
     private String password;
     private String role;
 
+    // ✅ Empty constructor (required by JPA)
+    public User() {
+    }
+
+    // ✅ Parameterized constructor
+    public User(Long id, String name, String email, String password, String role) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
