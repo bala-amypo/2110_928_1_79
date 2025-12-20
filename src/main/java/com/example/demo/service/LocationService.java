@@ -1,12 +1,9 @@
-package com.example.transportpro.service;
+package com.example.demo.service;
 
-import com.example.transportpro.entity.Location;
+import com.example.demo.entity.Location;
 import java.util.List;
 
 public interface LocationService {
-    Location create(Location location);
-    Location getById(Long id);
-    List<Location> getAll();
-    Location update(Long id, Location location);
-    void delete(Long id);
+    Location createLocation(Location location);
+    List<Location> getAllLocations();
 }

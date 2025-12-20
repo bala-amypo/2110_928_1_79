@@ -1,48 +1,44 @@
-package com.example.transportpro.service.impl;
+package com.example.demo.service.impl;
 
-import com.example.transportpro.entity.RouteOptimizationResult;
-import com.example.transportpro.repo.RouteOptimizationResultRepo;
-import com.example.transportpro.service.RouteOptimizationService;
-import org.springframework.stereotype.Service;
+import com.example.demo.entity.*;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.repository.*;
+import com.example.demo.service.RouteOptimizationService;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
-@Service
-public class RouteOptimizationServiceImpl
-        implements RouteOptimizationService {
+public class RouteOptimizationServiceImpl implements RouteOptimizationService {
 
-    private final RouteOptimizationResultRepo repo;
+    private final ShipmentRepository shipmentRepository;
+    private final RouteOptimizationResultRepository resultRepository;
 
-    public RouteOptimizationServiceImpl(RouteOptimizationResultRepo repo) {
-        this.repo = repo;
+    public RouteOptimizationServiceImpl(ShipmentRepository shipmentRepository,
+                                        RouteOptimizationResultRepository resultRepository) {
+        this.shipmentRepository = shipmentRepository;
+        this.resultRepository = resultRepository;
     }
 
-    @Override
-    public RouteOptimizationResult create(RouteOptimizationResult result) {
-        return repo.save(result);
+    public RouteOptimizationResult optimizeRoute(Long shipmentId) {
+        Shipment shipment = shipmentRepository.findById(shipmentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Shipment not found"));
+
+        double distance = Math.hypot(
+                shipment.getPickupLocation().getLatitude() - shipment.getDropLocation().getLatitude(),
+                shipment.getPickupLocation().getLongitude() - shipment.getDropLocation().getLongitude()
+        );
+
+        if (distance <= 0) distance = 10;
+
+        double fuel = distance / shipment.getVehicle().getFuelEfficiency();
+
+        RouteOptimizationResult result =
+                new RouteOptimizationResult(shipment, distance, fuel, LocalDateTime.now());
+
+        return resultRepository.save(result);
     }
 
-    @Override
-    public RouteOptimizationResult getById(Long id) {
-        return repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Route optimization result not found"));
-    }
-
-    @Override
-    public List<RouteOptimizationResult> getAll() {
-        return repo.findAll();
-    }
-
-    @Override
-    public RouteOptimizationResult update(Long id, RouteOptimizationResult result) {
-        RouteOptimizationResult existing = getById(id);
-        existing.setDistance(result.getDistance());
-        existing.setDuration(result.getDuration());
-        return repo.save(existing);
-    }
-
-    @Override
-    public void delete(Long id) {
-        repo.deleteById(id);
+    public RouteOptimizationResult getResult(Long resultId) {
+        return resultRepository.findById(resultId)
+                .orElseThrow(() -> new ResourceNotFoundException("Result not found"));
     }
 }

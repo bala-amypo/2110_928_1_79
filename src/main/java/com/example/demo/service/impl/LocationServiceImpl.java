@@ -1,43 +1,26 @@
-package com.example.transportpro.service.impl;
+package com.example.demo.service.impl;
 
-import com.example.transportpro.entity.Location;
-import com.example.transportpro.repo.LocationRepo;
-import com.example.transportpro.service.LocationService;
-import org.springframework.stereotype.Service;
-
+import com.example.demo.entity.Location;
+import com.example.demo.repository.LocationRepository;
+import com.example.demo.service.LocationService;
 import java.util.List;
 
-@Service
 public class LocationServiceImpl implements LocationService {
 
-    private final LocationRepo repo;
+    private final LocationRepository locationRepository;
 
-    public LocationServiceImpl(LocationRepo repo) {
-        this.repo = repo;
+    public LocationServiceImpl(LocationRepository locationRepository) {
+        this.locationRepository = locationRepository;
     }
 
-    public Location create(Location location) {
-        return repo.save(location);
+    public Location createLocation(Location location) {
+        if (location.getLatitude() > 90 || location.getLatitude() < -90) {
+            throw new IllegalArgumentException("Invalid latitude");
+        }
+        return locationRepository.save(location);
     }
 
-    public Location getById(Long id) {
-        return repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Location not found"));
-    }
-
-    public List<Location> getAll() {
-        return repo.findAll();
-    }
-
-    public Location update(Long id, Location location) {
-        Location l = getById(id);
-        l.setName(location.getName());
-        l.setLatitude(location.getLatitude());
-        l.setLongitude(location.getLongitude());
-        return repo.save(l);
-    }
-
-    public void delete(Long id) {
-        repo.deleteById(id);
+    public List<Location> getAllLocations() {
+        return locationRepository.findAll();
     }
 }

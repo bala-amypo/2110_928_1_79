@@ -1,12 +1,8 @@
-package com.example.transportpro.service;
+package com.example.demo.service;
 
-import com.example.transportpro.entity.Shipment;
-import java.util.List;
+import com.example.demo.entity.Shipment;
 
 public interface ShipmentService {
-    Shipment create(Shipment shipment);
-    Shipment getById(Long id);
-    List<Shipment> getAll();
-    Shipment update(Long id, Shipment shipment);
-    void delete(Long id);
+    Shipment createShipment(Long vehicleId, Shipment shipment);
+    Shipment getShipment(Long shipmentId);
 }

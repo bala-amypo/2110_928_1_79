@@ -1,42 +1,36 @@
-package com.example.transportpro.service.impl;
+package com.example.demo.service.impl;
 
-import com.example.transportpro.entity.User;
-import com.example.transportpro.repo.UserRepo;
-import com.example.transportpro.service.UserService;
-import org.springframework.stereotype.Service;
+import com.example.demo.entity.User;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.service.UserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.List;
-
-@Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRepo repo;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepo repo) {
-        this.repo = repo;
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    public User create(User user) {
-        return repo.save(user);
+    public User registerUser(User user) {
+        if (user.getRole() == null) {
+            user.setRole("USER");
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
 
-    public User getById(Long id) {
-        return repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
-    public List<User> getAll() {
-        return repo.findAll();
-    }
-
-    public User update(Long id, User user) {
-        User u = getById(id);
-        u.setName(user.getName());
-        u.setEmail(user.getEmail());
-        return repo.save(u);
-    }
-
-    public void delete(Long id) {
-        repo.deleteById(id);
+    public User findById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 }
