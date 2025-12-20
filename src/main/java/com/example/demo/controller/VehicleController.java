@@ -16,21 +16,28 @@ public class VehicleController {
     @Autowired
     private VehicleService vehicleService;
 
-    // Endpoint 1: /vehicles/{userId}
-    
-    @GetMapping("/{userId}")
-    public List<Vehicle> getVehiclesByUserId(
+    // Get vehicles by user
+    @Operation(summary = "Get vehicles by user ID")
+    @GetMapping("/user/{userId}")
+    public List<Vehicle> getVehiclesByUser(
             @Parameter(description = "ID of the user to fetch vehicles for", required = true)
             @PathVariable Long userId) {
-        return vehicleService.getVehiclesByUserId(userId);
+        return vehicleService.getVehiclesByUser(userId);
     }
 
-    // Endpoint 2: /vehicles/user/{userId} (optional)
-    
-    @GetMapping("/user/{userId}")
-    public List<Vehicle> getVehiclesByUserIdAlternative(
-            @Parameter(description = "ID of the user to fetch vehicles for", required = true)
-            @PathVariable Long userId) {
-        return vehicleService.getVehiclesByUserId(userId);
+    // Add a new vehicle
+    @Operation(summary = "Add a vehicle for a user")
+    @PostMapping("/{userId}")
+    public Vehicle addVehicle(
+            @PathVariable Long userId,
+            @RequestBody Vehicle vehicle) {
+        return vehicleService.addVehicle(userId, vehicle);
+    }
+
+    // Get vehicle by ID
+    @Operation(summary = "Get vehicle by ID")
+    @GetMapping("/id/{id}")
+    public Vehicle getVehicleById(@PathVariable Long id) {
+        return vehicleService.findById(id);
     }
 }
