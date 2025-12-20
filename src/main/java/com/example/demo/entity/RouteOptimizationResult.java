@@ -1,6 +1,7 @@
-package com.example.transportpro.entity;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "route_optimization_results")
@@ -10,15 +11,22 @@ public class RouteOptimizationResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Double distance;
-    private Double duration;
+    @ManyToOne
+    private Shipment shipment;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    private Double optimizedDistanceKm;
+    private Double estimatedFuelUsageL;
+    private LocalDateTime generatedAt;
 
-    public Double getDistance() { return distance; }
-    public void setDistance(Double distance) { this.distance = distance; }
+    public RouteOptimizationResult() {}
 
-    public Double getDuration() { return duration; }
-    public void setDuration(Double duration) { this.duration = duration; }
+    public RouteOptimizationResult(Shipment shipment, Double optimizedDistanceKm,
+                                   Double estimatedFuelUsageL, LocalDateTime generatedAt) {
+        this.shipment = shipment;
+        this.optimizedDistanceKm = optimizedDistanceKm;
+        this.estimatedFuelUsageL = estimatedFuelUsageL;
+        this.generatedAt = generatedAt;
+    }
+
+    // getters & setters
 }
