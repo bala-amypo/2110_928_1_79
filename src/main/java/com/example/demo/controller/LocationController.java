@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.Location;
 import com.example.demo.service.LocationService;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,14 +16,15 @@ public class LocationController {
         this.locationService = locationService;
     }
 
+    // GET /locations
     @GetMapping
-    public List<String> getAllLocations() {
+    public List<Location> getAllLocations() {
         return locationService.getAllLocations();
     }
 
+    // POST /locations
     @PostMapping
-    public String addLocation(@RequestParam String name) {
-        locationService.addLocation(name);
-        return "Location added: " + name;
+    public Location createLocation(@RequestBody Location location) {
+        return locationService.saveLocation(location);
     }
 }
