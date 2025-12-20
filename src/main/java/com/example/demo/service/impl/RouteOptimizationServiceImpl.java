@@ -6,7 +6,9 @@ import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.RouteOptimizationResultRepository;
 import com.example.demo.repository.ShipmentRepository;
 import com.example.demo.service.RouteOptimizationService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RouteOptimizationServiceImpl implements RouteOptimizationService {
 
     private final ShipmentRepository shipmentRepo;
@@ -18,6 +20,7 @@ public class RouteOptimizationServiceImpl implements RouteOptimizationService {
         this.resultRepo = resultRepo;
     }
 
+    @Override
     public RouteOptimizationResult optimizeRoute(Long shipmentId) {
         Shipment shipment = shipmentRepo.findById(shipmentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Shipment not found"));
@@ -30,6 +33,7 @@ public class RouteOptimizationServiceImpl implements RouteOptimizationService {
         return resultRepo.save(result);
     }
 
+    @Override
     public RouteOptimizationResult getResult(Long resultId) {
         return resultRepo.findById(resultId)
                 .orElseThrow(() -> new ResourceNotFoundException("Result not found"));

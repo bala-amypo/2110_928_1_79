@@ -6,8 +6,10 @@ import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.ShipmentRepository;
 import com.example.demo.repository.VehicleRepository;
 import com.example.demo.service.ShipmentService;
+import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 
+@Service
 public class ShipmentServiceImpl implements ShipmentService {
 
     private final ShipmentRepository shipmentRepo;
@@ -19,6 +21,7 @@ public class ShipmentServiceImpl implements ShipmentService {
         this.vehicleRepo = vehicleRepo;
     }
 
+    @Override
     public Shipment createShipment(Long vehicleId, Shipment shipment) {
         Vehicle vehicle = vehicleRepo.findById(vehicleId)
                 .orElseThrow(() -> new ResourceNotFoundException("Vehicle not found"));
@@ -35,6 +38,7 @@ public class ShipmentServiceImpl implements ShipmentService {
         return shipmentRepo.save(shipment);
     }
 
+    @Override
     public Shipment getShipment(Long shipmentId) {
         return shipmentRepo.findById(shipmentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Shipment not found"));

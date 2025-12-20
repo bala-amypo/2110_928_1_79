@@ -6,18 +6,22 @@ import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.repository.VehicleRepository;
 import com.example.demo.service.VehicleService;
+import org.springframework.stereotype.Service;
 import java.util.List;
 
+@Service
 public class VehicleServiceImpl implements VehicleService {
 
     private final VehicleRepository vehicleRepo;
     private final UserRepository userRepo;
 
-    public VehicleServiceImpl(VehicleRepository vehicleRepo, UserRepository userRepo) {
+    public VehicleServiceImpl(VehicleRepository vehicleRepo,
+                              UserRepository userRepo) {
         this.vehicleRepo = vehicleRepo;
         this.userRepo = userRepo;
     }
 
+    @Override
     public Vehicle addVehicle(Long userId, Vehicle vehicle) {
         if (vehicle.getCapacityKg() <= 0) {
             throw new IllegalArgumentException("Capacity must be positive");
@@ -30,10 +34,12 @@ public class VehicleServiceImpl implements VehicleService {
         return vehicleRepo.save(vehicle);
     }
 
+    @Override
     public List<Vehicle> getVehiclesByUser(Long userId) {
         return vehicleRepo.findByUserId(userId);
     }
 
+    @Override
     public Vehicle findById(Long id) {
         return vehicleRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Vehicle not found"));
