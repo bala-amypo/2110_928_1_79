@@ -1,32 +1,37 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
-@Table(name = "route_optimization_results")
 public class RouteOptimizationResult {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;  // Unique identifier
 
-    @ManyToOne
-    private Shipment shipment;
-
-    private Double optimizedDistanceKm;
-    private Double estimatedFuelUsageL;
-    private LocalDateTime generatedAt;
+    private String routeDescription;
+    private double totalDistanceKm;
+    private double estimatedFuelConsumption;
 
     public RouteOptimizationResult() {}
 
-    public RouteOptimizationResult(Shipment shipment, Double optimizedDistanceKm,
-                                   Double estimatedFuelUsageL, LocalDateTime generatedAt) {
-        this.shipment = shipment;
-        this.optimizedDistanceKm = optimizedDistanceKm;
-        this.estimatedFuelUsageL = estimatedFuelUsageL;
-        this.generatedAt = generatedAt;
+    public RouteOptimizationResult(String id, String routeDescription, double totalDistanceKm, double estimatedFuelConsumption) {
+        this.id = id;
+        this.routeDescription = routeDescription;
+        this.totalDistanceKm = totalDistanceKm;
+        this.estimatedFuelConsumption = estimatedFuelConsumption;
     }
 
-    // getters & setters
+    // Getters and setters
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+
+    public String getRouteDescription() { return routeDescription; }
+    public void setRouteDescription(String routeDescription) { this.routeDescription = routeDescription; }
+
+    public double getTotalDistanceKm() { return totalDistanceKm; }
+    public void setTotalDistanceKm(double totalDistanceKm) { this.totalDistanceKm = totalDistanceKm; }
+
+    public double getEstimatedFuelConsumption() { return estimatedFuelConsumption; }
+    public void setEstimatedFuelConsumption(double estimatedFuelConsumption) { this.estimatedFuelConsumption = estimatedFuelConsumption; }
 }

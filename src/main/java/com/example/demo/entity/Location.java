@@ -1,41 +1,20 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
-@Table(name = "locations")
 public class Location {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String name;
-    private Double latitude;
-    private Double longitude;
+    private String name; // Location name as primary key
 
     public Location() {}
 
-    public Location(String name, Double latitude, Double longitude) {
+    public Location(String name) {
         this.name = name;
-        this.latitude = latitude;
-        this.longitude = longitude;
     }
 
-    // 🔴 THIS FIXES getId() ERROR
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Double getLatitude() {
-        return latitude;
-    }
-
-    public Double getLongitude() {
-        return longitude;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 }
