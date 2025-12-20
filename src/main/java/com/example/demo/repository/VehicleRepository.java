@@ -1,4 +1,4 @@
-package com.example.transportpro.repository;
+package com.example.demo.repository;
 
 import com.example.transportpro.entity.Vehicle;
 import org.springframework.data.jpa.repository.JpaRepository;
