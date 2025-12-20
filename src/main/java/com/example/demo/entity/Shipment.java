@@ -1,61 +1,29 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
-import java.time.LocalDate;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
-@Table(name = "shipments")
 public class Shipment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String shipmentId;
 
     @ManyToOne
     private Vehicle vehicle;
 
-    @ManyToOne
-    private Location pickupLocation;
-
-    @ManyToOne
-    private Location dropLocation;
-
-    private Double weightKg;
-    private LocalDate scheduledDate;
-
     public Shipment() {}
 
-    public Shipment(Vehicle vehicle, Location pickupLocation,
-                    Location dropLocation, Double weightKg,
-                    LocalDate scheduledDate) {
+    public Shipment(String shipmentId, Vehicle vehicle) {
+        this.shipmentId = shipmentId;
         this.vehicle = vehicle;
-        this.pickupLocation = pickupLocation;
-        this.dropLocation = dropLocation;
-        this.weightKg = weightKg;
-        this.scheduledDate = scheduledDate;
     }
 
-    public Long getId() {
-        return id;
-    }
+    // Getters and setters
+    public String getShipmentId() { return shipmentId; }
+    public void setShipmentId(String shipmentId) { this.shipmentId = shipmentId; }
 
-    public Vehicle getVehicle() {
-        return vehicle;
-    }
-
-    public Location getPickupLocation() {
-        return pickupLocation;
-    }
-
-    public Location getDropLocation() {
-        return dropLocation;
-    }
-
-    public Double getWeightKg() {
-        return weightKg;
-    }
-
-    public LocalDate getScheduledDate() {
-        return scheduledDate;
-    }
+    public Vehicle getVehicle() { return vehicle; }
+    public void setVehicle(Vehicle vehicle) { this.vehicle = vehicle; }
 }

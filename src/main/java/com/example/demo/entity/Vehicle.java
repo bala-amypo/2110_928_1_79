@@ -1,8 +1,13 @@
 package com.example.demo.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class Vehicle {
 
-    private String name;
+    @Id
+    private String name;  // Or use a unique ID field
     private String type;
     private double capacityKg;
     private double fuelEfficiency;
