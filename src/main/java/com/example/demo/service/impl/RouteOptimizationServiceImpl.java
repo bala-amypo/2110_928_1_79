@@ -9,8 +9,8 @@ public class RouteOptimizationServiceImpl {
 
     public double calculateAverageFuelEfficiency(List<Vehicle> vehicles) {
         return vehicles.stream()
-                .mapToDouble(Vehicle::getFuelEfficiency)
-                .average()
-                .orElse(0);
+                       .mapToDouble(Vehicle::getFuelEfficiency)
+                       .average()
+                       .orElse(0);
     }
 }
