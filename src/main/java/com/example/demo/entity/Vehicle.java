@@ -2,34 +2,22 @@ package com.example.demo.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Vehicle {
 
     @Id
-    private String name;  // Or use a unique ID field
+    private String name;
+
     private String type;
     private double capacityKg;
     private double fuelEfficiency;
 
-    public Vehicle() {}
+    @ManyToOne
+    private User user;  // <-- add this
 
-    public Vehicle(String name, String type, double capacityKg, double fuelEfficiency) {
-        this.name = name;
-        this.type = type;
-        this.capacityKg = capacityKg;
-        this.fuelEfficiency = fuelEfficiency;
-    }
-
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
-
-    public double getCapacityKg() { return capacityKg; }
-    public void setCapacityKg(double capacityKg) { this.capacityKg = capacityKg; }
-
-    public double getFuelEfficiency() { return fuelEfficiency; }
-    public void setFuelEfficiency(double fuelEfficiency) { this.fuelEfficiency = fuelEfficiency; }
+    // constructors, getters, setters
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 }
