@@ -18,7 +18,8 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public void addVehicle(Vehicle vehicle) {
+    public Vehicle saveVehicle(Vehicle vehicle) {
         vehicles.add(vehicle);
+        return vehicle;
     }
 }

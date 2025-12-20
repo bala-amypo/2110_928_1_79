@@ -7,5 +7,5 @@ public interface VehicleService {
 
     List<Vehicle> getAllVehicles();
 
-    Vehicle saveVehicle(Vehicle vehicle);   // ✅ ADD THIS
+    Vehicle saveVehicle(Vehicle vehicle);
 }
