@@ -1,37 +1,26 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class RouteOptimizationResult {
 
     @Id
-    private String id;  // Unique identifier
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private String routeDescription;
-    private double totalDistanceKm;
-    private double estimatedFuelConsumption;
+    @ManyToOne
+    private Shipment shipment;
 
-    public RouteOptimizationResult() {}
+    private Double optimizedDistanceKm;
+    private Double estimatedFuelUsageL;
+    private LocalDateTime generatedAt;
 
-    public RouteOptimizationResult(String id, String routeDescription, double totalDistanceKm, double estimatedFuelConsumption) {
-        this.id = id;
-        this.routeDescription = routeDescription;
-        this.totalDistanceKm = totalDistanceKm;
-        this.estimatedFuelConsumption = estimatedFuelConsumption;
+    @PrePersist
+    public void onCreate() {
+        this.generatedAt = LocalDateTime.now();
     }
 
-    // Getters and setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-
-    public String getRouteDescription() { return routeDescription; }
-    public void setRouteDescription(String routeDescription) { this.routeDescription = routeDescription; }
-
-    public double getTotalDistanceKm() { return totalDistanceKm; }
-    public void setTotalDistanceKm(double totalDistanceKm) { this.totalDistanceKm = totalDistanceKm; }
-
-    public double getEstimatedFuelConsumption() { return estimatedFuelConsumption; }
-    public void setEstimatedFuelConsumption(double estimatedFuelConsumption) { this.estimatedFuelConsumption = estimatedFuelConsumption; }
+    // getters & setters
 }
