@@ -1,11 +1,19 @@
-package com.example.demo.service;
+package com.example.transportpro.service;
 
-import com.example.demo.entity.Vehicle;
+import com.example.transportpro.entity.Vehicle;
+import com.example.transportpro.repository.VehicleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import java.util.List;
 
-public interface VehicleService {
+@Service
+public class VehicleService {
 
-    List<Vehicle> getAllVehicles();
+    @Autowired
+    private VehicleRepository vehicleRepository;
 
-    Vehicle saveVehicle(Vehicle vehicle);
+    // Fetch vehicles by userId
+    public List<Vehicle> getVehiclesByUserId(Long userId) {
+        return vehicleRepository.findByUserId(userId);
+    }
 }

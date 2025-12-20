@@ -1,7 +1,10 @@
-package com.example.demo.controller;
+package com.example.transportpro.controller;
 
-import com.example.demo.entity.Vehicle;
-import com.example.demo.service.VehicleService;
+import com.example.transportpro.entity.Vehicle;
+import com.example.transportpro.service.VehicleService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,21 +13,24 @@ import java.util.List;
 @RequestMapping("/vehicles")
 public class VehicleController {
 
-    private final VehicleService vehicleService;
+    @Autowired
+    private VehicleService vehicleService;
 
-    public VehicleController(VehicleService vehicleService) {
-        this.vehicleService = vehicleService;
+    // Endpoint 1: /vehicles/{userId}
+    @Operation(summary = "Get vehicles by user ID")
+    @GetMapping("/{userId}")
+    public List<Vehicle> getVehiclesByUserId(
+            @Parameter(description = "ID of the user to fetch vehicles for", required = true)
+            @PathVariable Long userId) {
+        return vehicleService.getVehiclesByUserId(userId);
     }
 
-    // GET /vehicles
-    @GetMapping
-    public List<Vehicle> getAllVehicles() {
-        return vehicleService.getAllVehicles();
-    }
-
-    // POST /vehicles
-    @PostMapping
-    public Vehicle addVehicle(@RequestBody Vehicle vehicle) {
-        return vehicleService.saveVehicle(vehicle);
+    // Endpoint 2: /vehicles/user/{userId} (optional)
+    @Operation(summary = "Alternative endpoint to get vehicles by user ID")
+    @GetMapping("/user/{userId}")
+    public List<Vehicle> getVehiclesByUserIdAlternative(
+            @Parameter(description = "ID of the user to fetch vehicles for", required = true)
+            @PathVariable Long userId) {
+        return vehicleService.getVehiclesByUserId(userId);
     }
 }
