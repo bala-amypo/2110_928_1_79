@@ -3,24 +3,18 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "locations")
 public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private Double latitude;
-    private Double longitude;
+    private double latitude;
+    private double longitude;
 
-    public Location() {}
+    public double getLatitude() { return latitude; }
+    public void setLatitude(double latitude) { this.latitude = latitude; }
 
-    public Location(String name, Double latitude, Double longitude) {
-        this.name = name;
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
-
-    // getters & setters
+    public double getLongitude() { return longitude; }
+    public void setLongitude(double longitude) { this.longitude = longitude; }
 }
