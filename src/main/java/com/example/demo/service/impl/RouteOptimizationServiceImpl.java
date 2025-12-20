@@ -18,7 +18,8 @@ public class RouteOptimizationServiceImpl implements RouteOptimizationService {
     }
 
     @Override
-    public void addResult(RouteOptimizationResult result) {
+    public RouteOptimizationResult saveResult(RouteOptimizationResult result) {
         results.add(result);
+        return result;
     }
 }

@@ -4,6 +4,8 @@ import com.example.demo.entity.RouteOptimizationResult;
 import java.util.List;
 
 public interface RouteOptimizationService {
+
     List<RouteOptimizationResult> getAllResults();
-    void addResult(RouteOptimizationResult result);
+
+    RouteOptimizationResult saveResult(RouteOptimizationResult result); // ✅ ADD
 }

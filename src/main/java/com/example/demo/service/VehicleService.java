@@ -4,6 +4,8 @@ import com.example.demo.entity.Vehicle;
 import java.util.List;
 
 public interface VehicleService {
+
     List<Vehicle> getAllVehicles();
-    void addVehicle(Vehicle vehicle);
+
+    Vehicle saveVehicle(Vehicle vehicle);   // ✅ ADD THIS
 }
