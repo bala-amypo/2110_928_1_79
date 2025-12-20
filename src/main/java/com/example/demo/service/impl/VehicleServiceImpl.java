@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.service.VehicleService;
 import com.example.demo.entity.Vehicle;
+import com.example.demo.service.VehicleService;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
