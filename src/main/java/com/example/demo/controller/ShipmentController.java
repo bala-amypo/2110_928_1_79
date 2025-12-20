@@ -4,6 +4,8 @@ import com.example.demo.entity.Shipment;
 import com.example.demo.service.ShipmentService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/shipments")
 public class ShipmentController {
@@ -14,14 +16,29 @@ public class ShipmentController {
         this.shipmentService = shipmentService;
     }
 
-    @PostMapping("/{vehicleId}")
-    public Shipment createShipment(@PathVariable Long vehicleId,
-                                   @RequestBody Shipment shipment) {
-        return shipmentService.createShipment(vehicleId, shipment);
+    @GetMapping
+    public List<Shipment> getAllShipments() {
+        return shipmentService.getAllShipments();
     }
 
-    @GetMapping("/{shipmentId}")
-    public Shipment getShipment(@PathVariable Long shipmentId) {
-        return shipmentService.getShipment(shipmentId);
+    @GetMapping("/{id}")
+    public Shipment getShipmentById(@PathVariable Long id) {
+        return shipmentService.getShipmentById(id);
+    }
+
+    @PostMapping
+    public Shipment addShipment(@RequestBody Shipment shipment) {
+        return shipmentService.addShipment(shipment);
+    }
+
+    @PutMapping("/{id}")
+    public Shipment updateShipment(@PathVariable Long id, @RequestBody Shipment shipment) {
+        return shipmentService.updateShipment(id, shipment);
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteShipment(@PathVariable Long id) {
+        shipmentService.deleteShipment(id);
+        return "Shipment deleted with id: " + id;
     }
 }
