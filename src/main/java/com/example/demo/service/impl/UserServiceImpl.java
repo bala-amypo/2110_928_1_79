@@ -4,8 +4,8 @@ import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -17,32 +17,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(User user) {
-        if (user.getRole() == null) {
-            user.setRole("USER");
-        }
-        return userRepository.save(user);
-    }
-
-    @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
     @Override
     public User getUserById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        Optional<User> user = userRepository.findById(id);
+        return user.orElse(null);
     }
 
     @Override
-    public User updateUser(Long id, User user) {
-        User existing = getUserById(id);
-        existing.setName(user.getName());
-        existing.setEmail(user.getEmail());
-        existing.setPassword(user.getPassword());
-        existing.setRole(user.getRole());
-        return userRepository.save(existing);
+    public User addUser(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User updateUser(Long id, User updatedUser) {
+        return userRepository.findById(id).map(user -> {
+            user.setName(updatedUser.getName());
+            user.setEmail(updatedUser.getEmail());
+            user.setPassword(updatedUser.getPassword());
+            user.setRole(updatedUser.getRole());
+            return userRepository.save(user);
+        }).orElse(null);
     }
 
     @Override
