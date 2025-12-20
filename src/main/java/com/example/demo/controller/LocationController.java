@@ -1,7 +1,7 @@
-package com.example.transportpro.controller;
+package com.example.demo.controller;
 
-import com.example.transportpro.entity.Location;
-import com.example.transportpro.service.LocationService;
+import com.example.demo.entity.Location;
+import com.example.demo.service.LocationService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,34 +10,19 @@ import java.util.List;
 @RequestMapping("/locations")
 public class LocationController {
 
-    private final LocationService service;
+    private final LocationService locationService;
 
-    public LocationController(LocationService service) {
-        this.service = service;
+    public LocationController(LocationService locationService) {
+        this.locationService = locationService;
     }
 
     @PostMapping
-    public Location create(@RequestBody Location location) {
-        return service.create(location);
-    }
-
-    @GetMapping("/{id}")
-    public Location getById(@PathVariable Long id) {
-        return service.getById(id);
+    public Location createLocation(@RequestBody Location location) {
+        return locationService.createLocation(location);
     }
 
     @GetMapping
-    public List<Location> getAll() {
-        return service.getAll();
-    }
-
-    @PutMapping("/{id}")
-    public Location update(@PathVariable Long id, @RequestBody Location location) {
-        return service.update(id, location);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    public List<Location> getAllLocations() {
+        return locationService.getAllLocations();
     }
 }

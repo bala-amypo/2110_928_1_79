@@ -1,45 +1,26 @@
-package com.example.transportpro.controller;
+package com.example.demo.controller;
 
-import com.example.transportpro.entity.RouteOptimizationResult;
-import com.example.transportpro.service.RouteOptimizationService;
+import com.example.demo.entity.RouteOptimizationResult;
+import com.example.demo.service.RouteOptimizationService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/route-optimizations")
+@RequestMapping("/optimize")
 public class RouteOptimizationController {
 
-    private final RouteOptimizationService service;
+    private final RouteOptimizationService routeOptimizationService;
 
-    public RouteOptimizationController(RouteOptimizationService service) {
-        this.service = service;
+    public RouteOptimizationController(RouteOptimizationService routeOptimizationService) {
+        this.routeOptimizationService = routeOptimizationService;
     }
 
-    @PostMapping
-    public RouteOptimizationResult create(@RequestBody RouteOptimizationResult result) {
-        return service.create(result);
+    @PostMapping("/{shipmentId}")
+    public RouteOptimizationResult optimize(@PathVariable Long shipmentId) {
+        return routeOptimizationService.optimizeRoute(shipmentId);
     }
 
-    @GetMapping("/{id}")
-    public RouteOptimizationResult getById(@PathVariable Long id) {
-        return service.getById(id);
-    }
-
-    @GetMapping
-    public List<RouteOptimizationResult> getAll() {
-        return service.getAll();
-    }
-
-    @PutMapping("/{id}")
-    public RouteOptimizationResult update(
-            @PathVariable Long id,
-            @RequestBody RouteOptimizationResult result) {
-        return service.update(id, result);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    @GetMapping("/result/{resultId}")
+    public RouteOptimizationResult getResult(@PathVariable Long resultId) {
+        return routeOptimizationService.getResult(resultId);
     }
 }
