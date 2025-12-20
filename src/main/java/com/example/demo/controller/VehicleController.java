@@ -17,7 +17,7 @@ public class VehicleController {
     private VehicleService vehicleService;
 
     // Get vehicles by user
-    @Operation(summary = "Get vehicles by user ID")
+    
     @GetMapping("/user/{userId}")
     public List<Vehicle> getVehiclesByUser(
             @Parameter(description = "ID of the user to fetch vehicles for", required = true)
@@ -26,7 +26,7 @@ public class VehicleController {
     }
 
     // Add a new vehicle
-    @Operation(summary = "Add a vehicle for a user")
+    
     @PostMapping("/{userId}")
     public Vehicle addVehicle(
             @PathVariable Long userId,
@@ -35,7 +35,7 @@ public class VehicleController {
     }
 
     // Get vehicle by ID
-    @Operation(summary = "Get vehicle by ID")
+   
     @GetMapping("/id/{id}")
     public Vehicle getVehicleById(@PathVariable Long id) {
         return vehicleService.findById(id);
