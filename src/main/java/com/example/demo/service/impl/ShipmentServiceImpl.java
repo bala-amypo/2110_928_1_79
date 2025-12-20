@@ -30,11 +30,11 @@ public class ShipmentServiceImpl implements ShipmentService {
 
         Location pickup = locationRepository.findById(
                 shipment.getPickupLocation().getId())
-                .orElseThrow(() -> new RuntimeException("Pickup not found"));
+                .orElseThrow(() -> new RuntimeException("Pickup location not found"));
 
         Location drop = locationRepository.findById(
                 shipment.getDropLocation().getId())
-                .orElseThrow(() -> new RuntimeException("Drop not found"));
+                .orElseThrow(() -> new RuntimeException("Drop location not found"));
 
         if (shipment.getWeightKg() > vehicle.getCapacityKg()) {
             throw new IllegalArgumentException("exceeds capacity");
@@ -48,5 +48,11 @@ public class ShipmentServiceImpl implements ShipmentService {
                 shipment.getWeightKg(), shipment.getScheduledDate());
 
         return shipmentRepository.save(shipment);
+    }
+
+    @Override
+    public Shipment getShipment(Long shipmentId) {
+        return shipmentRepository.findById(shipmentId)
+                .orElseThrow(() -> new RuntimeException("Shipment not found"));
     }
 }
