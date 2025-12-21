@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.LoginRequest;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +15,15 @@ public class AuthController {
         this.userService = userService;
     }
 
+    // REGISTER
     @PostMapping("/register")
     public User register(@RequestBody User user) {
         return userService.register(user);
     }
 
+    // LOGIN
     @PostMapping("/login")
-    public User login(@RequestBody User user) {
-        return userService.findByEmail(user.getEmail());
+    public User login(@RequestBody LoginRequest request) {
+        return userService.login(request.getEmail(), request.getPassword());
     }
 }

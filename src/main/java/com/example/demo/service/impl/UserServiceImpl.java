@@ -9,23 +9,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository repo;
+    private final UserRepository userRepo;
 
-    public UserServiceImpl(UserRepository repo) {
-        this.repo = repo;
+    public UserServiceImpl(UserRepository userRepo) {
+        this.userRepo = userRepo;
     }
 
     @Override
     public User register(User user) {
-        if (user.getRole() == null) {
-            user.setRole("USER");
-        }
-        return repo.save(user);
+        return userRepo.save(user);
     }
 
     @Override
-    public User findByEmail(String email) {
-        return repo.findByEmail(email)
+    public User login(String email, String password) {
+        User user = userRepo.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        if (!user.getPassword().equals(password)) {
+            throw new IllegalArgumentException("Invalid password");
+        }
+
+        return user;
     }
 }
