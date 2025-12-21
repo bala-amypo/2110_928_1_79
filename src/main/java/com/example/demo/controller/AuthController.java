@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.LoginRequest;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,7 +18,7 @@ public class AuthController {
 
     // REGISTER
     @PostMapping("/register")
-    public User register(@RequestBody User user) {
+    public User register(@Valid @RequestBody User user) {
         return userService.register(user);
     }
 
