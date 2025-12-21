@@ -1,4 +1,4 @@
-package com.example.transportpro;
+package com.example.transpro;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
