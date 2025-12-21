@@ -7,6 +7,7 @@ import com.example.demo.repository.UserRepository;
 import com.example.demo.repository.VehicleRepository;
 import com.example.demo.service.VehicleService;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
