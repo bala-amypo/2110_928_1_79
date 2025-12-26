@@ -18,4 +18,11 @@ public class UserServiceImpl implements UserService {
     public User register(User user) {
         return repo.save(user);
     }
+
+    @Override
+    public User login(String email, String password) {
+        return repo.findByEmail(email)
+                .filter(u -> u.getPassword().equals(password))
+                .orElse(null);
+    }
 }
