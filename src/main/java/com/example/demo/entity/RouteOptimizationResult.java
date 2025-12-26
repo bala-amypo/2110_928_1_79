@@ -1,36 +1,34 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "route_optimization_results")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class RouteOptimizationResult {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long shipmentId;
-    private double optimizedCost;
+    @ManyToOne
+    @JoinColumn(name = "shipment_id", nullable = false)
+    private Shipment shipment;
 
-    // ✅ REQUIRED setters
-    public void setShipmentId(Long shipmentId) {
-        this.shipmentId = shipmentId;
-    }
+    private Double optimizedDistanceKm;
 
-    public void setOptimizedCost(double optimizedCost) {
-        this.optimizedCost = optimizedCost;
-    }
+    private Double estimatedFuelUsageL;
 
-    // getters
-    public Long getId() {
-        return id;
-    }
+    private LocalDateTime generatedAt;
 
-    public Long getShipmentId() {
-        return shipmentId;
-    }
-
-    public double getOptimizedCost() {
-        return optimizedCost;
+    @PrePersist
+    protected void onCreate() {
+        this.generatedAt = LocalDateTime.now();
     }
 }
