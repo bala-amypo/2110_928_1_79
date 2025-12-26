@@ -1,9 +1,11 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.LoginRequest;
+import com.example.demo.dto.AuthRequest;
+import com.example.demo.dto.AuthResponse;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
-import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -11,20 +13,30 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
-    public AuthController(UserService userService) {
+    public AuthController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     // REGISTER
     @PostMapping("/register")
-    public User register(@Valid @RequestBody User user) {
-        return userService.register(user);
+    public ResponseEntity<AuthResponse> register(@RequestBody AuthRequest request) {
+        User user = new User();
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword())); // encrypt password
+        user.setRole(request.getRole());
+
+        User savedUser = userService.register(user);
+        return ResponseEntity.ok(new AuthResponse("User registered successfully!", savedUser.getEmail()));
     }
 
     // LOGIN
     @PostMapping("/login")
-    public User login(@RequestBody LoginRequest request) {
-        return userService.login(request.getEmail(), request.getPassword());
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
+        User user = userService.login(request.getEmail(), request.getPassword());
+        return ResponseEntity.ok(new AuthResponse("Login successful!", user.getEmail()));
     }
 }
