@@ -2,24 +2,26 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.RouteOptimizationResult;
 import com.example.demo.service.RouteOptimizationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@RequestMapping("/route")
 public class RouteOptimizationController {
 
-    private final RouteOptimizationService routeService;
+    @Autowired
+    private RouteOptimizationService routeService;
 
-    public RouteOptimizationController(RouteOptimizationService routeService) {
-        this.routeService = routeService;
+    @PostMapping("/optimize")
+    public RouteOptimizationResult optimizeRoute(@RequestParam Long shipmentId,
+                                                  @RequestParam Long vehicleId) {
+        return routeService.optimizeRoute(shipmentId, vehicleId);
     }
 
-    @PostMapping("/optimize/{shipmentId}")
-    public RouteOptimizationResult optimize(@PathVariable Long shipmentId) {
-        return routeService.optimizeRoute(shipmentId);
-    }
-
-    @GetMapping("/optimize/result/{resultId}")
-    public RouteOptimizationResult getResult(@PathVariable Long resultId) {
-        return routeService.getResult(resultId);
+    @GetMapping("/results")
+    public List<RouteOptimizationResult> getAllResults() {
+        return routeService.getAllResults();
     }
 }

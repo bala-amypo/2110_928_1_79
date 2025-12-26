@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Vehicle;
 import com.example.demo.service.VehicleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,22 +11,16 @@ import java.util.List;
 @RequestMapping("/vehicles")
 public class VehicleController {
 
-    private final VehicleService vehicleService;
+    @Autowired
+    private VehicleService vehicleService;
 
-    public VehicleController(VehicleService vehicleService) {
-        this.vehicleService = vehicleService;
+    @PostMapping
+    public Vehicle addVehicle(@RequestBody Vehicle vehicle) {
+        return vehicleService.addVehicle(vehicle);  // Correct method
     }
 
-    // POST /vehicles/{userId}
-    @PostMapping("/{userId}")
-    public Vehicle addVehicle(@PathVariable Long userId,
-                              @RequestBody Vehicle vehicle) {
-        return vehicleService.addVehicle(userId, vehicle);
-    }
-
-    // GET /vehicles/user/{userId}
-    @GetMapping("/user/{userId}")
-    public List<Vehicle> getVehicles(@PathVariable Long userId) {
-        return vehicleService.getVehiclesByUser(userId);
+    @GetMapping
+    public List<Vehicle> getAllVehicles() {
+        return vehicleService.getAllVehicles();
     }
 }

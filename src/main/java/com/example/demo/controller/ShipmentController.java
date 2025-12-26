@@ -2,26 +2,25 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Shipment;
 import com.example.demo.service.ShipmentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/shipments")
 public class ShipmentController {
 
-    private final ShipmentService shipmentService;
+    @Autowired
+    private ShipmentService shipmentService;
 
-    public ShipmentController(ShipmentService shipmentService) {
-        this.shipmentService = shipmentService;
+    @PostMapping
+    public Shipment addShipment(@RequestBody Shipment shipment) {
+        return shipmentService.addShipment(shipment);  // Correct method
     }
 
-    @PostMapping("/{vehicleId}")
-    public Shipment createShipment(@PathVariable Long vehicleId,
-                                   @RequestBody Shipment shipment) {
-        return shipmentService.createShipment(vehicleId, shipment);
-    }
-
-    @GetMapping("/{shipmentId}")
-    public Shipment getShipment(@PathVariable Long shipmentId) {
-        return shipmentService.getShipment(shipmentId);
+    @GetMapping
+    public List<Shipment> getAllShipments() {
+        return shipmentService.getAllShipments();
     }
 }
