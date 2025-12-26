@@ -1,25 +1,32 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "shipments")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Shipment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Location source;
+    private double weight;
 
     @ManyToOne
-    private Location destination;
+    @JoinColumn(name = "pickup_location_id")
+    private Location pickupLocation;
 
-    private int weight;
+    @ManyToOne
+    @JoinColumn(name = "drop_location_id")
+    private Location dropLocation;
+
+    @ManyToOne
+    @JoinColumn(name = "vehicle_id")
+    private Vehicle vehicle;
 }
