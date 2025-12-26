@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Location;
 import com.example.demo.service.LocationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,12 +10,15 @@ import java.util.List;
 @RequestMapping("/locations")
 public class LocationController {
 
-    @Autowired
-    private LocationService locationService;
+    private final LocationService locationService;
+
+    public LocationController(LocationService locationService) {
+        this.locationService = locationService;
+    }
 
     @PostMapping
     public Location addLocation(@RequestBody Location location) {
-        return locationService.addLocation(location);  // Correct method
+        return locationService.addLocation(location);
     }
 
     @GetMapping
