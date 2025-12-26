@@ -3,8 +3,11 @@ package com.example.demo.service.impl;
 import com.example.demo.entity.Shipment;
 import com.example.demo.repository.ShipmentRepository;
 import com.example.demo.service.ShipmentService;
-import java.util.Optional;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class ShipmentServiceImpl implements ShipmentService {
 
     private final ShipmentRepository shipmentRepository;
@@ -13,11 +16,13 @@ public class ShipmentServiceImpl implements ShipmentService {
         this.shipmentRepository = shipmentRepository;
     }
 
-    public Shipment createShipment(Long userId, Shipment shipment) {
+    @Override
+    public Shipment addShipment(Shipment shipment) {
         return shipmentRepository.save(shipment);
     }
 
-    public Optional<Shipment> getShipment(Long id) {
-        return shipmentRepository.findById(id);
+    @Override
+    public List<Shipment> getAllShipments() {
+        return shipmentRepository.findAll();
     }
 }
