@@ -10,7 +10,7 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>Transport Route Optimization</name>
-    <description>Spring Boot project with JPA, JWT, TestNG & REST APIs</description>
+    <description>Spring Boot project with JPA, JWT, TestNG &amp; REST APIs</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
