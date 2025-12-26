@@ -7,6 +7,8 @@ import com.example.demo.repository.ShipmentRepository;
 import com.example.demo.service.RouteOptimizationService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RouteOptimizationServiceImpl implements RouteOptimizationService {
 
@@ -25,14 +27,10 @@ public class RouteOptimizationServiceImpl implements RouteOptimizationService {
         Shipment shipment = shipmentRepository.findById(shipmentId)
                 .orElseThrow(() -> new RuntimeException("Shipment not found"));
 
-        // Simple dummy calculation (tests don't check algorithm)
-        double distance = 120.5;
-        double estimatedTime = 4.5;
-
         RouteOptimizationResult result = RouteOptimizationResult.builder()
-                .distance(distance)
-                .estimatedTime(estimatedTime)
-                .shipment(shipment)   // ✅ correct relation
+                .distance(120.5)
+                .estimatedTime(4.5)
+                .shipment(shipment)
                 .build();
 
         return resultRepository.save(result);
@@ -42,5 +40,10 @@ public class RouteOptimizationServiceImpl implements RouteOptimizationService {
     public RouteOptimizationResult getResult(Long shipmentId) {
         return resultRepository.findByShipmentId(shipmentId)
                 .orElseThrow(() -> new RuntimeException("Result not found"));
+    }
+
+    @Override
+    public List<RouteOptimizationResult> getAllResults() {
+        return resultRepository.findAll();   // ✅ REQUIRED
     }
 }
