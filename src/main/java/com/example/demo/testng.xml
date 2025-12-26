@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="TransportRouteOptimizationSuite">
+    <test name="TransportRouteOptimizationTests">
+        <packages>
+            <package name="com.example.demo.test"/>
+        </packages>
+    </test>
+</suite>
