@@ -1,9 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Shipment;
-import java.util.List;
+import java.util.Optional;
 
 public interface ShipmentService {
-    Shipment addShipment(Shipment shipment);
-    List<Shipment> getAllShipments();
+    Shipment createShipment(Long userId, Shipment shipment);
+    Optional<Shipment> getShipment(Long id);
 }

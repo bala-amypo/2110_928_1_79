@@ -1,24 +1,14 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
-@Table(name = "locations")
-@Getter
-@Setter
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Location {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-
     private double latitude;
-
     private double longitude;
 }
