@@ -3,61 +3,39 @@ package com.example.demo.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.stereotype.Component;
-
 import java.util.Date;
 
-@Component
 public class JwtUtil {
 
-    private final String SECRET = "secret123456";
-    private final long EXPIRATION = 86400000; // 1 day
+    private final String secretKey;
+    private final long validityInMilliseconds;
 
-    public String generateToken(Long userId, String email, String role) {
-        package com.example.demo.security;
-
-import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
-import java.security.Key;
-import java.util.Date;
-import java.util.Map;
-
-public class JwtUtil {
-    private final Key key;
-    private final long validityMs;
-
-    public JwtUtil(String secret, long validityMs) {
-        this.key = Keys.hmacShaKeyFor(secret.getBytes());
-        this.validityMs = validityMs;
+    public JwtUtil(String secretKey, long validityInMilliseconds) {
+        this.secretKey = secretKey;
+        this.validityInMilliseconds = validityInMilliseconds;
     }
 
+    // Generate token with userId, email, role
     public String generateToken(Long userId, String email, String role) {
+        Claims claims = Jwts.claims().setSubject(email);
+        claims.put("userId", userId);
+        claims.put("role", role);
+
+        Date now = new Date();
+        Date expiry = new Date(now.getTime() + validityInMilliseconds);
+
         return Jwts.builder()
-                .setClaims(Map.of("userId", userId, "email", email, "role", role))
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + validityMs))
-                .signWith(key)
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(expiry)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
 
-    public Jws<Claims> validateToken(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-    }
-}
-
-                .claim("userId", userId)
-                .claim("email", email)
-                .claim("role", role)
-                .setSubject(email)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
-                .signWith(SignatureAlgorithm.HS256, SECRET)
-                .compact();
-    }
-
+    // Validate token and return claims
     public Claims validateToken(String token) {
         return Jwts.parser()
-                .setSigningKey(SECRET)
+                .setSigningKey(secretKey)
                 .parseClaimsJws(token)
                 .getBody();
     }
