@@ -1,26 +1,36 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
 
 @Entity
-@Table(name = "route_optimization_results")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class RouteOptimizationResult {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private double distance;
+    private Long shipmentId;
+    private double optimizedCost;
 
-    private double estimatedTime;
+    // ✅ REQUIRED setters
+    public void setShipmentId(Long shipmentId) {
+        this.shipmentId = shipmentId;
+    }
 
-    @OneToOne
-    @JoinColumn(name = "shipment_id")
-    private Shipment shipment;
+    public void setOptimizedCost(double optimizedCost) {
+        this.optimizedCost = optimizedCost;
+    }
+
+    // getters
+    public Long getId() {
+        return id;
+    }
+
+    public Long getShipmentId() {
+        return shipmentId;
+    }
+
+    public double getOptimizedCost() {
+        return optimizedCost;
+    }
 }
