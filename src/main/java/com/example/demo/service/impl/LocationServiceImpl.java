@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.Location;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.LocationRepository;
 import com.example.demo.service.LocationService;
 import org.springframework.stereotype.Service;
@@ -17,12 +18,25 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public Location addLocation(Location location) {
+    public Location createLocation(Location location) {
+
+        if (location.getLatitude() == null ||
+                location.getLatitude() < -90 || location.getLatitude() > 90) {
+            throw new IllegalArgumentException("Invalid latitude value");
+        }
+
         return locationRepository.save(location);
     }
 
     @Override
     public List<Location> getAllLocations() {
         return locationRepository.findAll();
+    }
+
+    @Override
+    public Location findById(Long locationId) {
+        return locationRepository.findById(locationId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Location not found"));
     }
 }

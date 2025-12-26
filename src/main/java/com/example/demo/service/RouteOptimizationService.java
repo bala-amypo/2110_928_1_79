@@ -1,9 +1,11 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.RouteOptimizationResult;
-import java.util.List;
+import com.example.demo.exception.ResourceNotFoundException;
 
 public interface RouteOptimizationService {
+
     RouteOptimizationResult optimizeRoute(Long shipmentId);
-    List<RouteOptimizationResult> getAllResults();
+
+    RouteOptimizationResult getResult(Long resultId) throws ResourceNotFoundException;
 }
