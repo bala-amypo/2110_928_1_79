@@ -1,8 +1,21 @@
+// package com.example.demo.service;
+
+// import com.example.demo.entity.Location;
+// import com.example.demo.exception.ResourceNotFoundException;
+
+// import java.util.List;
+
+// public interface LocationService {
+
+//     Location createLocation(Location location);
+
+//     List<Location> getAllLocations();
+
+//     Location findById(Long locationId) throws ResourceNotFoundException;
+// }
 package com.example.demo.service;
 
 import com.example.demo.entity.Location;
-import com.example.demo.exception.ResourceNotFoundException;
-
 import java.util.List;
 
 public interface LocationService {
@@ -10,6 +23,4 @@ public interface LocationService {
     Location createLocation(Location location);
 
     List<Location> getAllLocations();
-
-    Location findById(Long locationId) throws ResourceNotFoundException;
 }
