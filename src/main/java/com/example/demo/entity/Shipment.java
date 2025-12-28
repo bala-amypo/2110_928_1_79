@@ -1,39 +1,39 @@
-// package com.example.demo.entity;
+package com.example.demo.entity;
 
-// import jakarta.persistence.*;
-// import lombok.*;
+import jakarta.persistence.*;
+import lombok.*;
 
-// import java.time.LocalDate;
-// import java.util.List;
+import java.time.LocalDate;
+import java.util.List;
 
-// @Entity
-// @Table(name = "shipments")
-// @Data
-// @NoArgsConstructor
-// @AllArgsConstructor
-// @Builder
-// public class Shipment {
+@Entity
+@Table(name = "shipments")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Shipment {
 
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-//     @ManyToOne
-//     @JoinColumn(name = "vehicle_id", nullable = false)
-//     private Vehicle vehicle;
+    @ManyToOne
+    @JoinColumn(name = "vehicle_id", nullable = false)
+    private Vehicle vehicle;
 
-//     @ManyToOne
-//     @JoinColumn(name = "pickup_location_id", nullable = false)
-//     private Location pickupLocation;
+    @ManyToOne
+    @JoinColumn(name = "pickup_location_id", nullable = false)
+    private Location pickupLocation;
 
-//     @ManyToOne
-//     @JoinColumn(name = "drop_location_id", nullable = false)
-//     private Location dropLocation;
+    @ManyToOne
+    @JoinColumn(name = "drop_location_id", nullable = false)
+    private Location dropLocation;
 
-//     private Double weightKg;
+    private Double weightKg;
 
-//     private LocalDate scheduledDate;
+    private LocalDate scheduledDate;
 
-//     @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL)
-//     private List<RouteOptimizationResult> optimizationResults;
-// }
+    @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL)
+    private List<RouteOptimizationResult> optimizationResults;
+}
