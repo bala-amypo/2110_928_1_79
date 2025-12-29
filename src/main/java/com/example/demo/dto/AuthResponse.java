@@ -1,15 +1,15 @@
-// package com.example.demo.dto;
+package com.example.demo.dto;
 
-// import lombok.*;
+import lombok.*;
 
-// @Data
-// @NoArgsConstructor
-// @AllArgsConstructor
-// @Builder
-// public class AuthResponse {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class AuthResponse {
 
-//     private String token;
-//     private Long userId;
-//     private String email;
-//     private String role;
-// }
+    private String token;
+    private Long userId;
+    private String email;
+    private String role;
+}

@@ -1,49 +1,17 @@
-// package com.example.demo.entity;
-
-// import jakarta.persistence.*;
-// import lombok.*;
-
-// import java.time.LocalDate;
-// import java.util.List;
-
-// @Entity
-// @Table(name = "shipments")
-// @Data
-// @NoArgsConstructor
-// @AllArgsConstructor
-// @Builder
-// public class Shipment {
-
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
-
-//     @ManyToOne
-//     @JoinColumn(name = "vehicle_id", nullable = false)
-//     private Vehicle vehicle;
-
-//     @ManyToOne
-//     @JoinColumn(name = "pickup_location_id", nullable = false)
-//     private Location pickupLocation;
-
-//     @ManyToOne
-//     @JoinColumn(name = "drop_location_id", nullable = false)
-//     private Location dropLocation;
-
-//     private Double weightKg;
-
-//     private LocalDate scheduledDate;
-
-//     @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL)
-//     private List<RouteOptimizationResult> optimizationResults;
-// }
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
-@Table(name = "shipment")
+@Table(name = "shipments")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Shipment {
 
     @Id
@@ -51,78 +19,21 @@ public class Shipment {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "vehicle_id", nullable = false)
     private Vehicle vehicle;
 
     @ManyToOne
+    @JoinColumn(name = "pickup_location_id", nullable = false)
     private Location pickupLocation;
 
     @ManyToOne
+    @JoinColumn(name = "drop_location_id", nullable = false)
     private Location dropLocation;
 
     private Double weightKg;
+
     private LocalDate scheduledDate;
 
-    public Shipment() {}
-
-    // ===== BUILDER =====
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    public static class Builder {
-        private final Shipment s = new Shipment();
-
-        public Builder id(Long id) {
-            s.setId(id);
-            return this;
-        }
-
-        public Builder vehicle(Vehicle vehicle) {
-            s.setVehicle(vehicle);
-            return this;
-        }
-
-        public Builder pickupLocation(Location pickupLocation) {
-            s.setPickupLocation(pickupLocation);
-            return this;
-        }
-
-        public Builder dropLocation(Location dropLocation) {
-            s.setDropLocation(dropLocation);
-            return this;
-        }
-
-        public Builder weightKg(Double weightKg) {
-            s.setWeightKg(weightKg);
-            return this;
-        }
-
-        public Builder scheduledDate(LocalDate scheduledDate) {
-            s.setScheduledDate(scheduledDate);
-            return this;
-        }
-
-        public Shipment build() {
-            return s;
-        }
-    }
-
-    // ===== getters & setters =====
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public Vehicle getVehicle() { return vehicle; }
-    public void setVehicle(Vehicle vehicle) { this.vehicle = vehicle; }
-
-    public Location getPickupLocation() { return pickupLocation; }
-    public void setPickupLocation(Location pickupLocation) { this.pickupLocation = pickupLocation; }
-
-    public Location getDropLocation() { return dropLocation; }
-    public void setDropLocation(Location dropLocation) { this.dropLocation = dropLocation; }
-
-    public Double getWeightKg() { return weightKg; }
-    public void setWeightKg(Double weightKg) { this.weightKg = weightKg; }
-
-    public LocalDate getScheduledDate() { return scheduledDate; }
-    public void setScheduledDate(LocalDate scheduledDate) { this.scheduledDate = scheduledDate; }
+    @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL)
+    private List<RouteOptimizationResult> optimizationResults;
 }
