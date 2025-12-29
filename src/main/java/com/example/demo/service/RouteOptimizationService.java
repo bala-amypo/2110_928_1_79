@@ -1,21 +1,11 @@
-// package com.example.demo.service;
-
-// import com.example.demo.entity.RouteOptimizationResult;
-// import com.example.demo.exception.ResourceNotFoundException;
-
-// public interface RouteOptimizationService {
-
-//     RouteOptimizationResult optimizeRoute(Long shipmentId);
-
-//     RouteOptimizationResult getResult(Long resultId) throws ResourceNotFoundException;
-// }
 package com.example.demo.service;
 
 import com.example.demo.entity.RouteOptimizationResult;
+import com.example.demo.exception.ResourceNotFoundException;
 
 public interface RouteOptimizationService {
 
     RouteOptimizationResult optimizeRoute(Long shipmentId);
 
-    RouteOptimizationResult getResult(Long resultId);
+    RouteOptimizationResult getResult(Long resultId) throws ResourceNotFoundException;
 }
